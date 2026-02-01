@@ -271,12 +271,9 @@ export class ValentineComponent implements AfterViewInit {
     const video = document.querySelector(
       '.background-video',
     ) as HTMLVideoElement;
-
     if (video) {
-      video.muted = true;
-      video.play().catch(() => {
-        // browser blocked it — user interaction will fix it
-      });
+      video.load(); // 👈 start loading AFTER page paint
+      video.play().catch(() => {});
     }
   }
 

@@ -6,7 +6,9 @@
   muted
   loop
   playsinline
+  preload="metadata"
 ></video>
+
 <audio #bgMusic src="/cold.mp3" loop muted></audio>
 
 <div class="container">
@@ -34,7 +36,7 @@
 <!-- Popup -->
 <div class="popup-backdrop" *ngIf="showPopup">
   <div class="popup">
-    <img src="/waiting.png" alt="waiting" />
+    <img src="/waiting.png" loading="lazy" alt="waiting" />
 
     <div class="popup-content">
       <p>HKM PROBEER JY OP NEE CLICK MICHKE!?</p>
@@ -45,7 +47,7 @@
       </div>
     </div>
 
-    <img src="/confused.png" alt="confused" />
+    <img src="/confused.png" loading="lazy" alt="confused" />
   </div>
 </div>
 
@@ -125,6 +127,7 @@
 
 <!-- Idol image (only after YES) -->
 <img
+  loading="lazy"
   *ngIf="accepted"
   src="/idol.jpg"
   alt="idol"
