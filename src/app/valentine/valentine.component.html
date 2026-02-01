@@ -1,0 +1,133 @@
+<!-- Background video -->
+<video
+  class="background-video"
+  src="/bk.mp4"
+  autoplay
+  muted
+  loop
+  playsinline
+></video>
+<audio #bgMusic src="/cold.mp3" loop muted></audio>
+
+<div class="container">
+  <div class="card">
+    <h1 *ngIf="!accepted">Will you be my Valentine? 💖</h1>
+
+    <div *ngIf="!accepted" class="buttons">
+      <button class="yes" (click)="yes()">JA🥰</button>
+
+      <button
+        *ngIf="!hideNoButton"
+        class="no"
+        [class.explode]="explodeNoButton"
+        (mouseenter)="!explodeNoButton && moveNo($event)"
+      >
+        NEE🧌
+      </button>
+    </div>
+
+    <h1 *ngIf="accepted">YAY!!! 💕🥰💘</h1>
+    <p *ngIf="accepted">Best decision ever ❤️</p>
+  </div>
+</div>
+
+<!-- Popup -->
+<div class="popup-backdrop" *ngIf="showPopup">
+  <div class="popup">
+    <img src="/waiting.png" alt="waiting" />
+
+    <div class="popup-content">
+      <p>HKM PROBEER JY OP NEE CLICK MICHKE!?</p>
+
+      <div class="popup-buttons">
+        <button class="popup-btn away" (click)="gaanWeg()">GAAN WEG!</button>
+        <button class="popup-btn sorry" (click)="sorry()">SORRY!</button>
+      </div>
+    </div>
+
+    <img src="/confused.png" alt="confused" />
+  </div>
+</div>
+
+<!-- Video Overlay -->
+<div class="video-backdrop" *ngIf="showVideo">
+  <button class="video-close" (click)="closeVideo()">✕😂</button>
+
+  <video
+    *ngIf="currentMedia === 'prob'"
+    src="/prob.mp4"
+    autoplay
+    controls
+  ></video>
+
+  <video
+    *ngIf="currentMedia === 'sien'"
+    src="/sien.mp4"
+    autoplay
+    controls
+  ></video>
+
+  <video
+    *ngIf="currentMedia === 'fokol'"
+    src="/fokol.mp4"
+    autoplay
+    controls
+  ></video>
+</div>
+<!-- CAT APOCALYPSE -->
+<div class="cat-container" *ngIf="catVideos.length">
+  <video
+    class="cat left"
+    src="/cat.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+  ></video>
+
+  <video
+    class="cat right"
+    src="/cat.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+  ></video>
+</div>
+<button *ngIf="accepted" class="bored-btn" (click)="openBoredLink()">
+  Click me if bored 😴
+</button>
+<!-- Music control (only after YES) -->
+<div
+  *ngIf="accepted"
+  class="music-controls"
+  [style.transform]="'rotate(' + musicTilt + 'deg)'"
+>
+  <button
+    class="music-toggle"
+    (mouseenter)="moveMusicControl($event)"
+    (click)="toggleMusic()"
+  >
+    {{ isMusicPaused ? "▶️" : "⏸" }}
+  </button>
+
+  <input
+    type="range"
+    min="0"
+    max="1"
+    step="0.01"
+    class="music-volume"
+    (mouseenter)="moveMusicControl($event)"
+    (input)="setVolume($event)"
+    (mouseleave)="musicTilt = 0"
+  />
+</div>
+
+<!-- Idol image (only after YES) -->
+<img
+  *ngIf="accepted"
+  src="/idol.jpg"
+  alt="idol"
+  class="idol-image"
+  (click)="openIdolLink()"
+/>
