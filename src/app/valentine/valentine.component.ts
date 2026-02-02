@@ -56,7 +56,6 @@ export class ValentineComponent implements AfterViewInit {
     this.accepted = true;
     this.showPopup = false;
 
-    // 🐱 start cat chaos after 1 second
     setTimeout(() => {
       this.startCatApocalypse();
     }, 3000);
@@ -67,7 +66,6 @@ export class ValentineComponent implements AfterViewInit {
   }
 
   startCatApocalypse() {
-    // start with ONE cat
     this.catVideos = [
       {
         id: 1,
@@ -76,7 +74,6 @@ export class ValentineComponent implements AfterViewInit {
     ];
 
     this.catInterval = setInterval(() => {
-      // 🛑 stop at 6 cats
       if (this.catVideos.length >= 4) {
         clearInterval(this.catInterval);
         return;
@@ -95,10 +92,8 @@ export class ValentineComponent implements AfterViewInit {
 
     audio.muted = false;
     audio.volume = 0.15;
-    // 🔥 THIS IS THE MISSING LINE
-    audio.play().catch(() => {
-      // browser safety fallback
-    });
+
+    audio.play().catch(() => {});
   }
 
   moveMusicButton(event: MouseEvent) {
@@ -108,7 +103,6 @@ export class ValentineComponent implements AfterViewInit {
 
     const button = event.target as HTMLElement;
 
-    // 🔒 lock size once (NO position changes)
     if (!button.style.width) {
       const rect = button.getBoundingClientRect();
       button.style.width = rect.width + 'px';
@@ -124,7 +118,7 @@ export class ValentineComponent implements AfterViewInit {
 
     button.style.left = Math.random() * maxX + 'px';
     button.style.top = Math.random() * maxY + 'px';
-    button.style.right = 'auto'; // 🔑 VERY IMPORTANT
+    button.style.right = 'auto';
 
     if (this.musicMoveCount >= 3) {
       this.musicButtonFrozen = true;
@@ -142,7 +136,6 @@ export class ValentineComponent implements AfterViewInit {
 
     if (!container) return;
 
-    // lock size & position once
     if (!container.style.left) {
       const rect = container.getBoundingClientRect();
       container.style.position = 'fixed';
@@ -175,12 +168,10 @@ export class ValentineComponent implements AfterViewInit {
 
     audio.volume = value;
 
-    // 🎯 map 0–1 → -8deg to +8deg
     this.musicTilt = (value - 0.5) * 1000;
   }
 
   moveNo(event: MouseEvent) {
-    // 🚫 hard stop conditions
     if (this.showVideo || this.explodeNoButton || this.hideNoButton) {
       return;
     }
@@ -194,7 +185,6 @@ export class ValentineComponent implements AfterViewInit {
     button.style.left = Math.random() * maxX + 'px';
     button.style.top = Math.random() * maxY + 'px';
 
-    // ⏱ popup timer (only once)
     if (!this.popupTimerStarted) {
       this.popupTimerStarted = true;
       setTimeout(() => {
@@ -204,14 +194,10 @@ export class ValentineComponent implements AfterViewInit {
       }, 3000);
     }
 
-    // 🚫 do nothing until GAAN WEG
     if (!this.gaanWegClicked) {
       return;
     }
 
-    // ===== NEW IMMEDIATE ESCALATION LOGIC =====
-
-    // Stage 1 → sien.mp4 (FIRST MOVE)
     if (this.escalationStage === 1) {
       this.currentMedia = 'sien';
       this.showVideo = true;
@@ -219,7 +205,6 @@ export class ValentineComponent implements AfterViewInit {
       return;
     }
 
-    // Stage 2 → fokol.mp4 (FIRST MOVE)
     if (this.escalationStage === 2) {
       this.currentMedia = 'fokol';
       this.showVideo = true;
@@ -235,12 +220,11 @@ export class ValentineComponent implements AfterViewInit {
   sorry() {
     this.showPopup = false;
 
-    // trigger same explosion behavior as final stage
     this.explodeNoButton = true;
 
     setTimeout(() => {
       this.hideNoButton = true;
-    }, 1200); // match explode animation timing
+    }, 1200);
   }
 
   gaanWeg() {
@@ -254,7 +238,6 @@ export class ValentineComponent implements AfterViewInit {
   }
 
   closeVideo() {
-    // 🔒 only freeze on FINAL video
     if (this.currentMedia === 'fokol') {
       this.explodeNoButton = true;
 
@@ -271,8 +254,9 @@ export class ValentineComponent implements AfterViewInit {
     const video = document.querySelector(
       '.background-video',
     ) as HTMLVideoElement;
+
     if (video) {
-      video.load(); // 👈 start loading AFTER page paint
+      video.muted = true;
       video.play().catch(() => {});
     }
   }
